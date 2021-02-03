@@ -62,6 +62,10 @@ public class Employee {
     this.email = email;
   }
 
+  public int getId() {
+    return id;
+  }
+
   @Override
   public String toString() {
     return "Employee{" +
@@ -72,11 +76,4 @@ public class Employee {
         '}';
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Long getId() {
-    return id;
-  }
 }

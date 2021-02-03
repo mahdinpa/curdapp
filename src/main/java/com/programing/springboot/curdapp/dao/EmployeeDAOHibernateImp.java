@@ -7,24 +7,36 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class EmployeeDAOHibernateImp implements EmployeeDAO{
+public class EmployeeDAOHibernateImp implements EmployeeDAO {
 
-  private EntityManager entityManager;
+  private final EntityManager entityManager;
 
   @Autowired
-  EmployeeDAOHibernateImp(EntityManager entityManager){
+  EmployeeDAOHibernateImp(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
   @Override
-  @Transactional
   public List<Employee> findAll() {
-
-    Session currentSession = entityManager.unwrap(Session.class);
-    return currentSession.createQuery("from Employee", Employee.class).getResultList();
-
+    return entityManager
+        .unwrap(Session.class)
+        .createQuery("from Employee", Employee.class)
+        .getResultList();
   }
+
+  @Override
+  public Employee findById(int theId) throws Exception {
+    return
+        entityManager
+            .unwrap(Session.class)
+            .createQuery("from Employee", Employee.class)
+            .getResultList()
+            .stream()
+            .filter(i -> i.getId() == theId)
+            .findFirst()
+            .orElseThrow(() -> new Exception("failed"));
+  }
+
 }
