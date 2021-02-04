@@ -1,9 +1,9 @@
-package com.programing.springboot.curdapp.dao;
+package com.programing.springboot.curdapp.service;
 
 import com.programing.springboot.curdapp.entity.Employee;
 import java.util.List;
 
-public interface EmployeeDAO {
+public interface EmployeeService {
 
   List<Employee> findAll();
 
@@ -11,5 +11,6 @@ public interface EmployeeDAO {
 
   void save(Employee employee);
 
-  void deleteById(int employeeId);
+  void deleteById(int theId);
+
 }

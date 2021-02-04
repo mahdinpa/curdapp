@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeeDAOHibernateImp implements EmployeeDAO {
+public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
   private final EntityManager entityManager;
 
   @Autowired
-  EmployeeDAOHibernateImp(EntityManager entityManager) {
+  EmployeeDAOHibernateImpl(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
@@ -37,6 +37,24 @@ public class EmployeeDAOHibernateImp implements EmployeeDAO {
             .filter(i -> i.getId() == theId)
             .findFirst()
             .orElseThrow(() -> new Exception("failed"));
+  }
+
+  @Override
+  public void save(Employee employee) {
+    entityManager
+        .unwrap(Session.class)
+        .saveOrUpdate(employee);
+  }
+
+
+  @Override
+  public void deleteById(int employeeId) {
+    entityManager
+        .unwrap(Session.class)
+        .createQuery("delete from Employee where id = :employeeId")
+        .setParameter("employeeId", employeeId)
+        .executeUpdate();
+
   }
 
 }
