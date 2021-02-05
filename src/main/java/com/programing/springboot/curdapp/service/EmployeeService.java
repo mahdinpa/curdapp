@@ -7,10 +7,10 @@ public interface EmployeeService {
 
   List<Employee> findAll();
 
-  Employee findById(int theId) throws Exception;
+  Employee findById(int theId);
 
-  void save(Employee employee);
+  Employee save(Employee employee);
 
-  void deleteById(int theId);
+  String deleteById(int theId);
 
 }

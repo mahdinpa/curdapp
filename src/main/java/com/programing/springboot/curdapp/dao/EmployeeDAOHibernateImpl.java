@@ -27,7 +27,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
   }
 
   @Override
-  public Employee findById(int theId) throws Exception {
+  public Employee findById(int theId) {
     return
         entityManager
             .unwrap(Session.class)
@@ -36,25 +36,35 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
             .stream()
             .filter(i -> i.getId() == theId)
             .findFirst()
-            .orElseThrow(() -> new Exception("failed"));
+            .orElseThrow(() -> new RuntimeException("failed"));
   }
 
   @Override
-  public void save(Employee employee) {
+  public Employee save(Employee employee) {
     entityManager
         .unwrap(Session.class)
         .saveOrUpdate(employee);
+    return employee;
   }
 
 
   @Override
-  public void deleteById(int employeeId) {
-    entityManager
-        .unwrap(Session.class)
-        .createQuery("delete from Employee where id = :employeeId")
-        .setParameter("employeeId", employeeId)
-        .executeUpdate();
+  public String deleteById(int employeeId) {
+    String result = null;
 
+    int numberOfDeletedRows =
+        entityManager
+            .unwrap(Session.class)
+            .createQuery("delete from Employee where id = :employeeId")
+            .setParameter("employeeId", employeeId)
+            .executeUpdate();
+
+    if (numberOfDeletedRows == 0) {
+      result = "An employee with Id " + employeeId + " does not exists";
+    } else {
+      result = "Employee with Id " + employeeId + " deleted";
+    }
+    return result;
   }
 
 }

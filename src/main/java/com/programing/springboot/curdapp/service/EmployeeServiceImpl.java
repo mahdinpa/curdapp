@@ -26,19 +26,19 @@ public class EmployeeServiceImpl implements
 
   @Override
   @Transactional
-  public Employee findById(int theId) throws Exception {
+  public Employee findById(int theId) {
     return employeeDAO.findById(theId);
   }
 
   @Override
   @Transactional
-  public void save(Employee employee) {
-    employeeDAO.save(employee);
+  public Employee save(Employee employee) {
+    return employeeDAO.save(employee);
   }
 
   @Override
   @Transactional
-  public void deleteById(int theId) {
-    employeeDAO.deleteById(theId);
+  public String deleteById(int theId) {
+    return employeeDAO.deleteById(theId);
   }
 }
