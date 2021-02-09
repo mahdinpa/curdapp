@@ -5,3 +5,4 @@ com/programing/springboot/curdapp/dao/EmployeeDAOHibernateImpl.class
 com/programing/springboot/curdapp/dao/EmployeeDAO.class
 com/programing/springboot/curdapp/service/EmployeeService.class
 com/programing/springboot/curdapp/rest/EmployeeRestController.class
+com/programing/springboot/curdapp/dao/EmployeeDAOJPAImpl.class

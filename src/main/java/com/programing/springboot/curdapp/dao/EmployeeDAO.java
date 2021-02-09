@@ -11,5 +11,5 @@ public interface EmployeeDAO {
 
   Employee save(Employee employee);
 
-  String deleteById(int employeeId);
+  String deleteById(int theId);
 }
